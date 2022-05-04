@@ -19,7 +19,6 @@ const createAuthor = async function (req, res) {
    if (!validEmail){
      return res.status(400).send({status:false, msg:"email is not valid"})
    }
-
    const checkEmail = await authorModel.findOne({ email:email});
    if (checkEmail){
      return res.status(400).send({status:false, msg:"email is already used"})
@@ -29,16 +28,14 @@ const createAuthor = async function (req, res) {
    if (!password){
       return res.status(400).send({status:false, msg:"password is required"})
    }
-
-
     const fname = data.fname;
     if (!fname){
-      return res.status(400).send({ status:false, msg: "first name required"})
+      return res.status(400).send({ status:false, msg: "first name is required"})
     }
 
     const lname = data.lname;
     if (!lname){
-      return res.status(400).send({status:false, msg:"last name required"})
+      return res.status(400).send({status:false, msg:"last name is required"})
     }
 
      const checkTitle = data.title
@@ -53,12 +50,6 @@ const createAuthor = async function (req, res) {
        return res.status(400).send({status:false, msg:"enter valid title"})
      }
     }
-
-    if (data){
-      const authorCreated = await authorModel.create(data);
-      return res.status(201).send({status:true, data: authorCreated,})
-    } 
-
   } catch (error) {res.status(500).send({ msg: error.message })}};
 
 

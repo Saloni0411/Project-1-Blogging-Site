@@ -39,12 +39,10 @@ const createBlog = async function (req, res) {
          const createdBlog = await blogModel.create(data);
            return res.status(201).send({ status: true, data: createdBlog });
        }
-
-    if (data) {
+       if(data){
        const createdBlog = await blogModel.create(data);
-          return res.status(201).send({ status: true, data: createdBlog });
-      }
-
+       return res.status(201).send({ status: true, data: createdBlog });
+       }
     
 }
   catch (err) {

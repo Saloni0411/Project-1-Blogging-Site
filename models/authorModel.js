@@ -6,29 +6,33 @@ const authorSchema = new mongoose.Schema(
   {
     fname: {
       type: String,
-      required: true,
+      required: "First name is required",
       trim: true
     },
     lname: {
       type: String,
-      required: true,
+      required: 'Last name is required',
       trim: true
     },
     title: {
       type: String,
       enum: ["Mr", "Mrs", "Miss"],
+      required: 'title is required'
     },
     email: {
       type: String,
+      trim: true,
+      lowercase: true,
       unique: true,
-      required:true
+      required: 'Email address is required',
     },
     password: {
       type: String,
-      required: true,
+      trim: true,
+      required: 'Password is required'
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Project_authors", authorSchema);
+module.exports = mongoose.model("Author", authorSchema); // authors
