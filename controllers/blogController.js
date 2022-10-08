@@ -1,5 +1,3 @@
-
-const { query } = require("express");
 const authorModel = require("../models/authorModel");
 const blogModel = require("../models/blogModel");
 
@@ -56,9 +54,11 @@ const getBlogs = async function (req, res) {
   try {
 
     const query = req.query;
+    
 
     if(Object.keys(query).length == 0){
       const allBlogs = await blogModel.find({isPublished: true,isDeleted: false});
+      console.log(allBlogs)
 
       if (allBlogs.length !=0){
           return res.status(200).send({ status: true, data: allBlogs})
@@ -81,8 +81,10 @@ const getBlogs = async function (req, res) {
           if (getByQuery.length ==0){
             return  res.status(404).send({ status: false, msg: "No blogs found by filter"});
           }
-  }
-}catch (error) {res.status(500).send({ status: false, error: error.message })}};
+        }
+      }
+   catch (error) {res.status(500).send({ status: false, error: error.message })}
+};
 
 
 /////////////////////////// -UPDATING BLOGS- //////////////////////////
@@ -133,7 +135,7 @@ const deleteBlogs = async function (req, res) {
     }
     
     const blogDeleted = await blogModel.findByIdAndUpdate({_id: blogId}, {isDeleted:true,deletedAt:Date.now()}) 
-    return res.status(200).send({ status:true, msg:" Blog are deleted"})
+    return res.status(200).send({ status:true, msg:" Blog is deleted successfully"})
    
 
   } catch (err) {res.status(500).send({ status: false, msg: err.message })}};

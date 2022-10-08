@@ -4,11 +4,17 @@ const authorContoller = require("../controllers/authorController");
 const blogController = require("../controllers/blogController");
 const middleware = require("../middleware/auth");
 
+//////////////////// -AUTHOR APIs- //////////////////////
+
 router.post("/authors", authorContoller.createAuthor);
 
-router.get("/getblog", middleware.Authentication,blogController.getBlogs);
+router.post("/authorLogin", authorContoller.authorLogIn);
 
-//////////////////// -MIDDLEWARE WITH AUTHENTICATION AND AUTHERIZATION- ////////////////
+//////////////////// -BLOG APIs- ///////////////////////
+
+router.post("/blogs",middleware.Authentication, middleware.Authorization,blogController.createBlog);
+
+router.get("/getblog", middleware.Authentication,blogController.getBlogs);
 
 router.put("/updateBlogs/:blogId",middleware.Authentication,middleware.Authorization,blogController.updateBlogs);
 
@@ -16,8 +22,6 @@ router.delete("/deleteBlogs/:blogId",middleware.Authentication, middleware.Autho
 
 router.delete("/deleteByQuery",middleware.Authentication, middleware.Authorization, blogController.deleteByQuery);
 
-router.post("/authorLogin", authorContoller.authorLogIn);
 
-router.post("/blogs",middleware.Authentication, middleware.Authorization,blogController.createBlog);
 
 module.exports = router;
